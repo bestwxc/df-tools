@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "即将安装jdk"
 source ./config.sh
-source ./scripts/color.sh
+source ../common/color.sh
 
 mkdir -p "$target_dir"
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 source ./config.sh
-source ./scripts/color.sh
+source ../common/color.sh
 if [ -d $target_dir/$jdk_dir ]
 then
     echo "请检查输出的版本信息是否与$jdk_dir一致" | _color_ green bold
