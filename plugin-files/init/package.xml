@@ -1,0 +1,38 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>package</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <files>
+        <file>
+            <source>target/${project.artifactId}-${project.version}.jar</source>
+            <outputDirectory>bin</outputDirectory>
+        </file>
+        <file>
+            <source>sh/run.sh</source>
+            <outputDirectory></outputDirectory>
+        </file>
+        <file>
+            <source>sh/conf/config.sh</source>
+            <outputDirectory>conf</outputDirectory>
+        </file>
+        <file>
+            <source>sh/conf/project.sh</source>
+            <outputDirectory>conf</outputDirectory>
+        </file>
+        <file>
+            <source>sh/scripts/color.sh</source>
+            <outputDirectory>scripts</outputDirectory>
+        </file>
+        <file>
+            <source>sh/scripts/setup.sh</source>
+            <outputDirectory>scripts</outputDirectory>
+        </file>
+        <file>
+            <source>sh/scripts/test.sh</source>
+            <outputDirectory>scripts</outputDirectory>
+        </file>
+    </files>
+</assembly>
