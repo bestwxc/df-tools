@@ -17,6 +17,6 @@ JAVA=$jdk_dir/bin/java
 
 ## -------- 自动生成配置区，使用setup.sh生成，请勿手动修改--------
 ## 可执行jar全路径
-JAR_PATH=/root/workspace/dz-public/dz-kfb-spring-boot-common-file/bin/dz-wskh-server-1.0.0-SNAPSHOT.jar
+JAR_PATH=/root/workspace/bin/application.jar
 
 
