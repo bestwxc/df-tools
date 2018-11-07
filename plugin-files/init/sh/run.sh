@@ -5,7 +5,7 @@ SERVER_DIR=/root/workspace/dz-public/dz-kfb-spring-boot-common-file
 cd $SERVER_DIR
 
 ## 用于加载jni
-export LD_LIBRARY_PATH=./:/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=./:./lib:/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH
 
 ## 引入公共配置信息
 source ./conf/config.sh
