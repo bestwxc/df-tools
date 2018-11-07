@@ -5,6 +5,13 @@
         <format>zip</format>
     </formats>
     <includeBaseDirectory>true</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <useDefaultExcludes>false</useDefaultExcludes>
+            <directory>lib/so</directory>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+    </fileSets>
     <files>
         <file>
             <source>target/${project.artifactId}-${project.version}.jar</source>
