@@ -11,6 +11,11 @@
             <directory>lib/so</directory>
             <outputDirectory>lib</outputDirectory>
         </fileSet>
+        <fileSet>
+            <useDefaultExcludes>false</useDefaultExcludes>
+            <directory>lib/dll</directory>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
     </fileSets>
     <files>
         <file>
