@@ -15,10 +15,10 @@ source ./scripts/color.sh
 ## 如果存在则引入机器额外配置
 if [ -f $ext_config_file ]
 then
-    echo "存在额外配置文件$ext_config_file,引入额外配置"
+    echo "存在额外配置文件$ext_config_file,引入额外配置" | _color_ green bold
     source $ext_config_file
 else
-    echo "不存在额外配置文件$ext_config_file,忽略额外配置"
+    echo "不存在额外配置文件$ext_config_file,忽略额外配置" | _color_ yellow bold
 fi
 
 ## 获取当前应用的pid
