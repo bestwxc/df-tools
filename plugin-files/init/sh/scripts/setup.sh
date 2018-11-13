@@ -20,7 +20,7 @@ else
 fi
 
 sed -i "s?^SERVER_DIR=.*\$?SERVER_DIR=$cur_dir?g" $cur_dir/run.sh
-JAR_PATH=`find $cur_dir -name "$application_name*.jar"`
+JAR_PATH=`find $cur_dir/ -name "$application_name*.jar"`
 sed -i "s?^JAR_PATH=.*\$?JAR_PATH=$JAR_PATH?g" $cur_dir/conf/config.sh
 echo "设置完成" | _color_ green bold
 echo "请检查下列信息是否正确" | _color_ green bold
@@ -28,16 +28,33 @@ echo "应用部署目录：" | _color_ green bold
 grep "SERVER_DIR=" $cur_dir/run.sh
 echo "执行JAR目录：" | _color_ green bold
 grep "JAR_PATH=" $cur_dir/conf/config.sh
+chmod u+x $cur_dir/run.sh
 
 if [ -d $jdk_dir ]
 then 
     if [ -f $jdk_dir/bin/java ]
     then
-	echo "检测到java命令，请检查下列控制台输出的版本信息是否符合要求" | _color_ green bold
-	$jdk_dir/bin/java -version
+        echo "检测到java命令，请检查下列控制台输出的版本信息是否符合要求" | _color_ green bold
+        $jdk_dir/bin/java -version
     else
         echo "未找到java命令，请检查jdk或使用工具重新安装" | _color_ red bold
+        exit -1
     fi
 else
     echo "$jdk_dir未找到jdk，请检查是否将jdk安装到该目录，或检查是否建立该软连接" | _color_ red bold
+    exit -1
+fi
+
+echo "开始建立超链接"
+
+if [ x$application_port != x ]
+then
+    echo "开始建立超链接"
+    cd ..
+    rm -rf $application_name-$application_port
+    ln -s $cur_dir $application_name-$application_port
+    rm -rf $application_name
+    ln -s $application_name-$application_port $application_name
+else
+    echo "未在project.sh中配置端口,不建立超链接"
 fi
