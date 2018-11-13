@@ -59,4 +59,4 @@ else
 fi
 
 rm -rvf *.zip
-echo "安装包已经删除"" | _color_ green bold
+echo "安装包已经删除" | _color_ green bold
