@@ -1,10 +1,13 @@
 #!/bin/bash
-source ./scripts/color.sh
+
+cur_dir=$(cd `dirname $0`/..;pwd)
+
+source ../common/color.sh
 ## 安装包名称
-install_package=server-jre-8u181-linux-x64.tar.gz
+install_package=jdk-8u192-linux-x64.tar.gz
 
 ## 安装包内目录名称
-jdk_dir=jdk1.8.0_181
+jdk_dir=jdk1.8.0_192
 
 ## 安装位置
 target_dir=/usr/local/java

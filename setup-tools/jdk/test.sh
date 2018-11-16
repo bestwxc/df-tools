@@ -1,6 +1,9 @@
 #!/bin/bash
-source ./config.sh
+
+cur_dir=$(cd `dirname $0`/..;pwd)
+
 source ../common/color.sh
+source ./config.sh
 if [ -d $target_dir/$jdk_dir ]
 then
     echo "请检查输出的版本信息是否与$jdk_dir一致" | _color_ green bold
