@@ -16,6 +16,8 @@ source ./scripts/color.sh
 if [ -f $ext_config_file ]
 then
     echo "存在额外配置文件$ext_config_file,引入额外配置" | _color_ green bold
+    echo "额外配置内容如下："  | _color_ green bold
+    echo $ext_config_file
     source $ext_config_file
 else
     echo "不存在额外配置文件$ext_config_file,忽略额外配置" | _color_ yellow bold
