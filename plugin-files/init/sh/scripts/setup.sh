@@ -48,8 +48,7 @@ fi
 if [ x$application_port != x ]
 then
     echo "开始建立超链接" | _color_ green bold
-    up_dir=$(cd ..;pwd)
-    cd ..
+    up_dir=$(cd ../..;pwd)
     rm -rvf $up_dir/$application_name-$application_port
     ln -s $cur_dir $up_dir/$application_name-$application_port
     rm -rvf $up_dir/$application_name
