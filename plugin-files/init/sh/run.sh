@@ -20,8 +20,18 @@ then
     echo $ext_config_file
     source $ext_config_file
 else
-    echo "不存在额外配置文件$ext_config_file,忽略额外配置" | _color_ yellow bold
+    echo "不存在额外配置文件$ext_config_file，创建" | _color_ yellow bold
+    config_dir=`dirname $ext_config_file`
+    mkdir -p config_dir
+    touch $ext_config_file
+    echo '#!/bin/bash' > $ext_config_file
+    echo 'vmargs="$vmargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
 fi
+
+echo "$ext_config_file 内容如下，请检查配置的eureka.instance.ip-address 是否与本机IP匹配" | _color_ yellow bold
+cat $ext_config_file
+echo "本机IP为：" | _color_ yellow bold
+ifconfig |grep "inet addr"|awk -F: '{print $2}'|awk '{print $1}'
 
 ## 获取当前应用的pid
 get_pid(){
