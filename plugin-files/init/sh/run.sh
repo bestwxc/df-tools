@@ -22,7 +22,7 @@ then
 else
     echo "不存在额外配置文件$ext_config_file，创建" | _color_ yellow bold
     config_dir=`dirname $ext_config_file`
-    mkdir -p config_dir
+    mkdir -p $config_dir
     touch $ext_config_file
     echo '#!/bin/bash' > $ext_config_file
     echo 'vmargs="$vmargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
