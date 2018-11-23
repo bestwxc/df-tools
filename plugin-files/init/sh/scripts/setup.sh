@@ -49,10 +49,10 @@ if [ x$application_port != x ]
 then
     echo "开始建立超链接" | _color_ green bold
     cd ..
-    rm -rvf $application_name-$application_port
-    ln -s $cur_dir $application_name-$application_port
-    rm -rvf $application_name
-    ln -s $application_name-$application_port $application_name
+    rm -rvf $cur_dir/../$application_name-$application_port
+    ln -s $cur_dir/../$cur_dir $cur_dir/../$application_name-$application_port
+    rm -rvf $cur_dir/../$application_name
+    ln -s $cur_dir/../$application_name-$application_port $cur_dir/../$application_name
     echo "超链接建立完成" | _color_ green bold
 else
     echo "未在project.sh中配置端口,不建立超链接" | _color_ yellow bold
