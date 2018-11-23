@@ -45,10 +45,10 @@ else
     exit -1
 fi
 
+up_dir=$(cd ../..;pwd)
 if [ x$application_port != x ]
 then
     echo "开始建立超链接" | _color_ green bold
-    up_dir=$(cd ../..;pwd)
     rm -rvf $up_dir/$application_name-$application_port
     ln -s $cur_dir $up_dir/$application_name-$application_port
     rm -rvf $up_dir/$application_name
@@ -58,5 +58,5 @@ else
     echo "未在project.sh中配置端口,不建立超链接" | _color_ yellow bold
 fi
 
-rm -rvf *.zip
+rm -rvf $up_dir/*.zip
 echo "安装包已经删除" | _color_ green bold
