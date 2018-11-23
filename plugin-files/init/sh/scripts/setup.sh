@@ -58,5 +58,6 @@ else
     echo "未在project.sh中配置端口,不建立超链接" | _color_ yellow bold
 fi
 
-rm -rvf $up_dir/*.zip
+cd $up_dir
+rm -rf *.zip
 echo "安装包已经删除" | _color_ green bold
