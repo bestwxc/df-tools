@@ -23,7 +23,7 @@ else
     mkdir -p $config_dir
     touch $ext_config_file
     echo '#!/bin/bash' > $ext_config_file
-    echo 'vmargs="$vmargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
+    echo 'springargs="$springargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
 fi
 
 echo "$ext_config_file 内容如下，请检查配置的eureka.instance.ip-address 是否与本机IP匹配" | _color_ yellow bold
@@ -54,7 +54,7 @@ start(){
     
     > $SERVER_DIR/nohup.out
     
-    nohup $JAVA -jar $JAR_PATH --spring.profiles.active=$active_profile $vmargs &
+    nohup $JAVA $vmargs -jar $JAR_PATH --spring.profiles.active=$active_profile $springargs &
     sleep 1
     get_pid
     if [ -n "$pid" ]

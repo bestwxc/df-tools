@@ -6,6 +6,9 @@ active_profile=test
 ## 虚拟机参数
 vmargs="-Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"
 
+## Spring参数
+springargs=""
+
 ## -------- 工程配置区，请根据工程实际进行修改--------------------
 ## 为了便于工程版本管理，application_name和 profile_list移到project.sh
 # source ./project.sh
