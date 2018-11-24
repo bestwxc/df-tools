@@ -4,7 +4,7 @@
 ## 当前激活的profile
 active_profile=test
 ## 虚拟机参数
-vmargs="-Xmx1024m -Xms512m"
+vmargs="-Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"
 
 ## -------- 工程配置区，请根据工程实际进行修改--------------------
 ## 为了便于工程版本管理，application_name和 profile_list移到project.sh
