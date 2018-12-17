@@ -27,6 +27,10 @@
             <outputDirectory></outputDirectory>
         </file>
         <file>
+            <source>sh/run.bat</source>
+            <outputDirectory></outputDirectory>
+        </file>
+        <file>
             <source>sh/conf/config.sh</source>
             <outputDirectory>conf</outputDirectory>
         </file>
