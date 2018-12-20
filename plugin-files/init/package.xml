@@ -16,39 +16,16 @@
             <directory>lib/dll</directory>
             <outputDirectory>lib</outputDirectory>
         </fileSet>
+        <fileSet>
+            <useDefaultExcludes>false</useDefaultExcludes>
+            <directory>sh</directory>
+            <outputDirectory></outputDirectory>
+        </fileSet>
     </fileSets>
     <files>
         <file>
             <source>target/${project.artifactId}-${project.version}.jar</source>
             <outputDirectory>bin</outputDirectory>
-        </file>
-        <file>
-            <source>sh/run.sh</source>
-            <outputDirectory></outputDirectory>
-        </file>
-        <file>
-            <source>sh/run.bat</source>
-            <outputDirectory></outputDirectory>
-        </file>
-        <file>
-            <source>sh/conf/config.sh</source>
-            <outputDirectory>conf</outputDirectory>
-        </file>
-        <file>
-            <source>sh/conf/project.sh</source>
-            <outputDirectory>conf</outputDirectory>
-        </file>
-        <file>
-            <source>sh/scripts/color.sh</source>
-            <outputDirectory>scripts</outputDirectory>
-        </file>
-        <file>
-            <source>sh/scripts/setup.sh</source>
-            <outputDirectory>scripts</outputDirectory>
-        </file>
-        <file>
-            <source>sh/scripts/test.sh</source>
-            <outputDirectory>scripts</outputDirectory>
         </file>
     </files>
 </assembly>
