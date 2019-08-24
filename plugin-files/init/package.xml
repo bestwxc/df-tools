@@ -24,7 +24,7 @@
         <fileSet>
             <useDefaultExcludes>false</useDefaultExcludes>
             <directory>config</directory>
-            <outputDirectory></outputDirectory>
+            <outputDirectory>config</outputDirectory>
         </fileSet>
     </fileSets>
     <files>
