@@ -21,6 +21,11 @@
             <directory>sh</directory>
             <outputDirectory></outputDirectory>
         </fileSet>
+        <fileSet>
+            <useDefaultExcludes>false</useDefaultExcludes>
+            <directory>config</directory>
+            <outputDirectory></outputDirectory>
+        </fileSet>
     </fileSets>
     <files>
         <file>
