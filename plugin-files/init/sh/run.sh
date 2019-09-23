@@ -72,16 +72,16 @@ start(){
 showLog(){
     case $1 in
        "error")
-           doShowLog "$log_dir" "$1/$1" "$2"
+           doShowLog "$log_dir" "$1/$1.log" "$2"
        ;;
        "warn")
-           doShowLog "$log_dir" "$1/$1" "$2"
+           doShowLog "$log_dir" "$1/$1.log" "$2"
        ;;
        "info")
-           doShowLog "$log_dir" "$1/$1" "$2"
+           doShowLog "$log_dir" "$1/$1.log" "$2"
        ;;
        "debug")
-           doShowLog "$log_dir" "$1/$1" "$2"
+           doShowLog "$log_dir" "$1/$1.log" "$2"
        ;;
        *)
        print_log_usage
@@ -99,7 +99,7 @@ doShowLog(){
     then
         nOfLine=200
     fi
-    echo "will tail logfile: $$1/$2, line: $nOfLine"
+    echo "will tail logfile: $1/$2, line: $nOfLine"
     tail -fn $nOfLine $1/$2
 }
 
