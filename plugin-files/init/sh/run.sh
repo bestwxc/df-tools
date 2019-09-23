@@ -84,7 +84,7 @@ showLog(){
            doShowLog "$log_dir" "$1/$1.log" "$2"
        ;;
        *)
-       print_log_usage
+           print_log_usage
        ;;
     esac
 }
@@ -103,9 +103,23 @@ doShowLog(){
     tail -fn $nOfLine $1/$2
 }
 
+## 打印ext_config_file
+showConfig() {
+    echo "项目的配置文件如下" | _color_ green bold
+    echo "sh/conf/config.sh内容如下" | _color_ green bold
+    cat ./sh/conf/config.sh
+    echo ""
+    echo "sh/conf/project.sh内容如下" | _color_ green bold
+    cat ./sh/conf/project.sh
+    echo ""
+    echo "ext_config_file:$ext_config_file内容如下" | _color_ green bold
+    cat $ext_config_file
+    echo ""
+}
+
 ## 打印使用方法
 print_usage(){
-    echo "Usage: bash run.sh [start|stop|restart|nohup|log]" | _color_ green bold
+    echo "Usage: bash run.sh [start|stop|restart|nohup|log|config]" | _color_ green bold
 }
 
 ## 打印显示日志的方法
@@ -132,6 +146,9 @@ doAlive(){
         "log")
             showLog $2 $3
             ;;
+        "config")
+            showConfig
+            ;;
         *)
             print_usage
             ;;
@@ -155,6 +172,9 @@ doDead(){
             ;;
         "log")
             showLog $2 $3
+            ;;
+        "config")
+            showConfig
             ;;
         *)
             print_usage
