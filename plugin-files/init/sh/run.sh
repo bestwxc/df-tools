@@ -106,11 +106,11 @@ doShowLog(){
 ## 打印ext_config_file
 showConfig() {
     echo "项目的配置文件如下" | _color_ green bold
-    echo "sh/conf/config.sh内容如下" | _color_ green bold
-    cat ./sh/conf/config.sh
+    echo "conf/config.sh内容如下" | _color_ green bold
+    cat ./conf/config.sh
     echo ""
-    echo "sh/conf/project.sh内容如下" | _color_ green bold
-    cat ./sh/conf/project.sh
+    echo "conf/project.sh内容如下" | _color_ green bold
+    cat ./conf/project.sh
     echo ""
     echo "ext_config_file:$ext_config_file内容如下" | _color_ green bold
     cat $ext_config_file
