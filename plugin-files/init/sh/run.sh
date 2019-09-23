@@ -23,6 +23,7 @@ else
     mkdir -p $config_dir
     touch $ext_config_file
     echo '#!/bin/bash' > $ext_config_file
+    echo 'vmargs="-Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $ext_config_file
     echo 'springargs="$springargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
 fi
 
@@ -65,9 +66,51 @@ start(){
         fi
 }
 
+## 查看日志方法
+## $1 日志级别
+## $2 日志行数
+showLog(){
+    case $1 in
+       "error")
+           doShowLog "$log_dir" "$1/$1" "$2"
+       ;;
+       "warn")
+           doShowLog "$log_dir" "$1/$1" "$3"
+       ;;
+       "info")
+           doShowLog "$log_dir" "$1/$1" "$2"
+       ;;
+       "debug")
+           doShowLog "$log_dir" "$1/$1" "$2"
+       ;;
+       *)
+       print_log_usage
+       ;;
+    esac
+}
+
+## 实际打印log的方法
+## $1 日志文件目录
+## $2 日志文件的名称
+## $3 日志文件行数
+doShowLog(){
+    nOfLine=$3
+    if [ "$nOfLine" == ""]
+    then
+        nOfLine=200
+    fi
+    echo "will tail logfile: $$1/$2/$3, line: $nOfLine"
+    tail -fn $nOfLine $1/$2/$3
+}
+
 ## 打印使用方法
 print_usage(){
-    echo "Usage: bash run.sh {start|stop|restart}" | _color_ green bold
+    echo "Usage: bash run.sh [start|stop|restart|nohup|log]" | _color_ green bold
+}
+
+## 打印显示日志的方法
+print_log_usage(){
+    echo "Usage: sh run.sh log [error|warn|info|debug] [nOfLine]" | _color_ green bold
 }
 
 ## 当应用存活时的处理方式
@@ -82,6 +125,12 @@ doAlive(){
             ;;
         "start")
             echo "当前存活，未执行操作" | _color_ green bold
+            ;;
+        "nohup")
+            doShowLog "$SERVER_DIR" nohup.out $3
+            ;;
+        "log")
+            showLog $2 $3
             ;;
         *)
             print_usage
@@ -100,6 +149,12 @@ doDead(){
             ;;
         "restart")
             start
+            ;;
+        "nohup")
+            doShowLog "$SERVER_DIR" nohup.out $3
+            ;;
+        "log")
+            showLog $2 $3
             ;;
         *)
             print_usage
