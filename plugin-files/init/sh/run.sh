@@ -75,7 +75,7 @@ showLog(){
            doShowLog "$log_dir" "$1/$1" "$2"
        ;;
        "warn")
-           doShowLog "$log_dir" "$1/$1" "$3"
+           doShowLog "$log_dir" "$1/$1" "$2"
        ;;
        "info")
            doShowLog "$log_dir" "$1/$1" "$2"
@@ -95,12 +95,12 @@ showLog(){
 ## $3 日志文件行数
 doShowLog(){
     nOfLine=$3
-    if [ "$nOfLine" == ""]
+    if [ ! -n "$nOfLine" ]
     then
         nOfLine=200
     fi
-    echo "will tail logfile: $$1/$2/$3, line: $nOfLine"
-    tail -fn $nOfLine $1/$2/$3
+    echo "will tail logfile: $$1/$2, line: $nOfLine"
+    tail -fn $nOfLine $1/$2
 }
 
 ## 打印使用方法
@@ -127,7 +127,7 @@ doAlive(){
             echo "当前存活，未执行操作" | _color_ green bold
             ;;
         "nohup")
-            doShowLog "$SERVER_DIR" nohup.out $3
+            doShowLog "$SERVER_DIR" nohup.out $2
             ;;
         "log")
             showLog $2 $3
@@ -151,7 +151,7 @@ doDead(){
             start
             ;;
         "nohup")
-            doShowLog "$SERVER_DIR" nohup.out $3
+            doShowLog "$SERVER_DIR" nohup.out $2
             ;;
         "log")
             showLog $2 $3
@@ -170,9 +170,9 @@ if [ -n "$pid" ]
 then
     ## 存活时
     echo "$application_name当前存活，pid:$pid" | _color_ green bold
-    doAlive $1
+    doAlive $1 $2 $3
 else
     ## 不存活时
     echo "$application_name当前未存活" | _color_ green bold
-    doDead $1
+    doDead $1 $2 $3
 fi
