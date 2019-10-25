@@ -56,7 +56,7 @@ start(){
     
     > $SERVER_DIR/nohup.out
     
-    nohup $JAVA $vmargs -jar $JAR_PATH --spring.profiles.active=$active_profile $springargs &
+    nohup $JAVA $vmargs -jar $JAR_PATH --spring.profiles.active=$active_profile --server.port=#application_port $springargs &
     sleep 1
     get_pid
     if [ -n "$pid" ]
