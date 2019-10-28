@@ -23,7 +23,8 @@ else
     mkdir -p $config_dir
     touch $ext_config_file
     echo '#!/bin/bash' > $ext_config_file
-    echo '#vmargs="-Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $ext_config_file
+    echo '#vmargs="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=16301"' >> $ext_config_file
+    echo '#vmargs="$vmargs -Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $ext_config_file
     echo 'springargs="$springargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
     echo '#springargs="$springargs --logging.config=classpath:logback-spring-pdt-info.xml"' >> $ext_config_file
 fi
