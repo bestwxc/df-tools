@@ -6,6 +6,9 @@ active_profile=test
 ## 虚拟机参数
 vmargs="-Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"
 
+
+gcargs="-XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintReferenceGC"
+
 ## Spring参数
 springargs=""
 

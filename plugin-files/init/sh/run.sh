@@ -12,6 +12,11 @@ source ./conf/config.sh
 source ./conf/project.sh
 source ./scripts/color.sh
 
+## 创建GC日志目录
+mkdir -p $log_dir/gc
+## 创建nohup 备份目录
+mkdir -p $log_dir/nohup
+
 ## 如果存在则引入机器额外配置
 if [ -f $ext_config_file ]
 then
@@ -23,9 +28,15 @@ else
     mkdir -p $config_dir
     touch $ext_config_file
     echo '#!/bin/bash' > $ext_config_file
-    echo '#vmargs="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=16301"' >> $ext_config_file
-    echo '#vmargs="$vmargs -Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $ext_config_file
+    echo '# 设置本机IP' > $ext_config_file
     echo 'springargs="$springargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
+    echo '# JVM内存参数' > $ext_config_file
+    echo '#vmargs="$vmargs -Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $ext_config_file
+    echo '# JVM gc日志参数' > $ext_config_file
+    echo '#gcargs="-XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintReferenceGC"' >> $ext_config_file
+    echo '# JVM远程调试参数' > $ext_config_file
+    echo '#vmargs="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=16301"' >> $ext_config_file
+    echo '# 微服务默认日志参数' > $ext_config_file
     echo '#springargs="$springargs --logging.config=classpath:logback-spring-pdt-info.xml"' >> $ext_config_file
 fi
 
@@ -55,9 +66,17 @@ stop(){
 ## 启动当前应用
 start(){
     
-    > $SERVER_DIR/nohup.out
+    ## 删除超过90天的nohup日志
+    find $log_dir/nohup -name "nohup*" -mtime +90 -exec rm -rf {} \;
+    ## 删除超过90天的gc日志
+    find $log_dir/gc -name "gc*" -mtime +90 -exec rm -rf {} \;
     
-    nohup $JAVA $vmargs -jar $JAR_PATH --spring.profiles.active=$active_profile --server.port=$application_port $springargs &
+    ## 启动时备份nohup日志和gc日志
+    time=`date "+%Y%m%d-%H%M%S"`
+    \mv $SERVER_DIR/nohup.out $log_dir/nohup/nohup.out.$time
+    \mv $log_dir/gc/gc.log $log_dir/gc/gc.log.$time
+
+    nohup $JAVA $vmargs $gcargs -Xloggc:$log_dir/gc/gc.log -jar $JAR_PATH --spring.profiles.active=$active_profile --server.port=$application_port $springargs &
     sleep 1
     get_pid
     if [ -n "$pid" ]
