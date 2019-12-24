@@ -92,6 +92,9 @@ start(){
 ## $2 日志行数
 showLog(){
     case $1 in
+       "gc")
+           doShowLog "$log_dir" "$1/$1.log" "$2"
+       ;;
        "error")
            doShowLog "$log_dir" "$1/$1.log" "$2"
        ;;
@@ -145,7 +148,7 @@ print_usage(){
 
 ## 打印显示日志的方法
 print_log_usage(){
-    echo "Usage: sh run.sh log [error|warn|info|debug] [nOfLine]" | _color_ green bold
+    echo "Usage: sh run.sh log [gc|error|warn|info|debug] [nOfLine]" | _color_ green bold
 }
 
 ## 当应用存活时的处理方式
