@@ -7,7 +7,7 @@ active_profile=test
 vmargs="-Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"
 
 
-gcargs="-XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintReferenceGC"
+gcargs="-XX:+PrintGC"
 
 ## Spring参数
 springargs=""

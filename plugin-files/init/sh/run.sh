@@ -33,6 +33,8 @@ else
     echo '# JVM内存参数' > $ext_config_file
     echo '#vmargs="$vmargs -Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $ext_config_file
     echo '# JVM gc日志参数' > $ext_config_file
+    echo '#gcargs="-XX:+PrintGC"' >> $ext_config_file
+    echo '#gcargs="-XX:+PrintGCDetails"' >> $ext_config_file
     echo '#gcargs="-XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintReferenceGC"' >> $ext_config_file
     echo '# JVM远程调试参数' > $ext_config_file
     echo '#vmargs="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=16301"' >> $ext_config_file
