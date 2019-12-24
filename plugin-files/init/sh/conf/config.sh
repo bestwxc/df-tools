@@ -6,8 +6,8 @@ active_profile=test
 ## 虚拟机参数
 vmargs="-Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"
 
-
-gcargs="-XX:+PrintGC"
+## GC参数
+gcargs="-XX:+PrintGC -XX:MetaspaceSize=128M"
 
 ## Spring参数
 springargs=""
