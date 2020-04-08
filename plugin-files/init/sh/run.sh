@@ -17,29 +17,39 @@ mkdir -p $log_dir/gc
 ## 创建nohup 备份目录
 mkdir -p $log_dir/nohup
 
+## 创建或更新配置模板文件
+temp_ext_config_file=$ext_config_file.template
+config_dir=`dirname $temp_ext_config_file`
+mkdir -p $config_dir
+touch $temp_ext_config_file
+echo '#!/bin/bash' > $temp_ext_config_file
+echo '# 设置本机IP' >> $temp_ext_config_file
+echo 'springargs="$springargs --eureka.instance.ip-address=172.20.26.1 "' >> $temp_ext_config_file
+echo '# JVM内存参数' >> $temp_ext_config_file
+echo '#vmargs="$vmargs -Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $temp_ext_config_file
+echo '# JVM gc日志参数' >> $temp_ext_config_file
+echo '#gcargs="-XX:+PrintGC -XX:MetaspaceSize=128M"' >> $temp_ext_config_file
+echo '#gcargs="-XX:+PrintGCDetails -XX:MetaspaceSize=128M"' >> $temp_ext_config_file
+echo '#gcargs="-XX:+PrintGCDetails -XX:MetaspaceSize=128M -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintReferenceGC"' >> $temp_ext_config_file
+echo '# JVM远程调试参数' >> $temp_ext_config_file
+echo '#vmargs="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=16301"' >> $temp_ext_config_file
+echo '# 微服务默认日志参数' >> $temp_ext_config_file
+echo '#springargs="$springargs --logging.config=classpath:logback-spring-pdt-info.xml"' >> $temp_ext_config_file
+
+
 ## 如果存在则引入机器额外配置
 if [ -f $ext_config_file ]
 then
     echo "存在额外配置文件$ext_config_file,引入额外配置" | _color_ green bold
+    ## 引入配置文件
     source $ext_config_file
 else
     echo "不存在额外配置文件$ext_config_file，创建" | _color_ yellow bold
-    config_dir=`dirname $ext_config_file`
-    mkdir -p $config_dir
+    ## 创建文件并将模板种的内容复制进配置文件
     touch $ext_config_file
-    echo '#!/bin/bash' >> $ext_config_file
-    echo '# 设置本机IP' >> $ext_config_file
-    echo 'springargs="$springargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
-    echo '# JVM内存参数' >> $ext_config_file
-    echo '#vmargs="$vmargs -Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $ext_config_file
-    echo '# JVM gc日志参数' >> $ext_config_file
-    echo '#gcargs="-XX:+PrintGC -XX:MetaspaceSize=128M"' >> $ext_config_file
-    echo '#gcargs="-XX:+PrintGCDetails -XX:MetaspaceSize=128M"' >> $ext_config_file
-    echo '#gcargs="-XX:+PrintGCDetails -XX:MetaspaceSize=128M -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintReferenceGC"' >> $ext_config_file
-    echo '# JVM远程调试参数' >> $ext_config_file
-    echo '#vmargs="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=16301"' >> $ext_config_file
-    echo '# 微服务默认日志参数' >> $ext_config_file
-    echo '#springargs="$springargs --logging.config=classpath:logback-spring-pdt-info.xml"' >> $ext_config_file
+    cat $temp_ext_config_file > $ext_config_file
+    ## 引入配置文件
+    source $ext_config_file
 fi
 
 echo "$ext_config_file 内容如下，请检查配置的eureka.instance.ip-address 是否与本机IP匹配" | _color_ yellow bold
