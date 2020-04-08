@@ -77,8 +77,14 @@ start(){
     time=`date "+%Y%m%d-%H%M%S"`
     \mv $SERVER_DIR/nohup.out $log_dir/nohup/nohup.out.$time
     \mv $log_dir/gc/gc.log $log_dir/gc/gc.log.$time
+    up_log_dir=`cd $log_dir/..;pwd`
 
-    nohup $JAVA $vmargs $gcargs -Xloggc:$log_dir/gc/gc.log -jar $JAR_PATH --spring.application.name=$application_name --spring.profiles.active=$active_profile --server.port=$application_port $springargs &
+    tmpargs="--spring.application.name=$application_name"
+    tmpargs="$tmpargs --logback.logdir=$up_log_dir"
+    tmpargs="$tmpargs --spring.profiles.active=$active_profile"
+    tmpargs="$tmpargs --server.port=$application_port"
+
+    nohup $JAVA $vmargs $gcargs -Xloggc:$log_dir/gc/gc.log -jar $JAR_PATH $tmpargs $springargs &
     sleep 1
     get_pid
     if [ -n "$pid" ]
