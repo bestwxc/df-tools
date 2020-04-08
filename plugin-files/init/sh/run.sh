@@ -27,18 +27,18 @@ else
     config_dir=`dirname $ext_config_file`
     mkdir -p $config_dir
     touch $ext_config_file
-    echo '#!/bin/bash' > $ext_config_file
-    echo '# 设置本机IP' > $ext_config_file
+    echo '#!/bin/bash' >> $ext_config_file
+    echo '# 设置本机IP' >> $ext_config_file
     echo 'springargs="$springargs --eureka.instance.ip-address=172.20.26.1 "' >> $ext_config_file
-    echo '# JVM内存参数' > $ext_config_file
+    echo '# JVM内存参数' >> $ext_config_file
     echo '#vmargs="$vmargs -Djava.security.egd=file:/dev/./urandom -Xmx1024m -Xms512m"' >> $ext_config_file
-    echo '# JVM gc日志参数' > $ext_config_file
+    echo '# JVM gc日志参数' >> $ext_config_file
     echo '#gcargs="-XX:+PrintGC -XX:MetaspaceSize=128M"' >> $ext_config_file
     echo '#gcargs="-XX:+PrintGCDetails -XX:MetaspaceSize=128M"' >> $ext_config_file
     echo '#gcargs="-XX:+PrintGCDetails -XX:MetaspaceSize=128M -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintReferenceGC"' >> $ext_config_file
-    echo '# JVM远程调试参数' > $ext_config_file
+    echo '# JVM远程调试参数' >> $ext_config_file
     echo '#vmargs="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=16301"' >> $ext_config_file
-    echo '# 微服务默认日志参数' > $ext_config_file
+    echo '# 微服务默认日志参数' >> $ext_config_file
     echo '#springargs="$springargs --logging.config=classpath:logback-spring-pdt-info.xml"' >> $ext_config_file
 fi
 
