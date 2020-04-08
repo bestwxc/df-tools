@@ -78,7 +78,7 @@ start(){
     \mv $SERVER_DIR/nohup.out $log_dir/nohup/nohup.out.$time
     \mv $log_dir/gc/gc.log $log_dir/gc/gc.log.$time
 
-    nohup $JAVA $vmargs $gcargs -Xloggc:$log_dir/gc/gc.log -jar $JAR_PATH --spring.profiles.active=$active_profile --server.port=$application_port $springargs &
+    nohup $JAVA $vmargs $gcargs -Xloggc:$log_dir/gc/gc.log -jar $JAR_PATH --spring.application.name=$application_name --spring.profiles.active=$active_profile --server.port=$application_port $springargs &
     sleep 1
     get_pid
     if [ -n "$pid" ]
@@ -107,6 +107,12 @@ showLog(){
            doShowLog "$log_dir" "$1/$1.log" "$2"
        ;;
        "debug")
+           doShowLog "$log_dir" "$1/$1.log" "$2"
+       ;;
+       "biz")
+           doShowLog "$log_dir" "$1/$1.log" "$2"
+       ;;
+       "sys")
            doShowLog "$log_dir" "$1/$1.log" "$2"
        ;;
        *)
@@ -150,7 +156,7 @@ print_usage(){
 
 ## 打印显示日志的方法
 print_log_usage(){
-    echo "Usage: sh run.sh log [gc|error|warn|info|debug] [nOfLine]" | _color_ green bold
+    echo "Usage: sh run.sh log [gc|biz|sys|error|warn|info|debug] [nOfLine]" | _color_ green bold
 }
 
 ## 当应用存活时的处理方式
